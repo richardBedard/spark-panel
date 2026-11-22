@@ -409,13 +409,13 @@ export const register: Register = on => {
       name: 'spark',
       description: 'Open the Spark panel (check, plan, init, GPU usage, logs, jobs)',
     })
-    void $.ui.open({ id: PANE, title: 'Spark' })
+    void $.ui.open({ id: PANE, title: 'Spark', placement: 'widget' })
 
     return next(e)
   })
 
   on('command.run', { command: 'spark' }, async $ => {
-    await $.ui.open({ id: PANE, title: 'Spark' })
+    await $.ui.open({ id: PANE, title: 'Spark', placement: 'widget' })
 
     return { text: 'Spark panel opened.' }
   })
@@ -520,6 +520,25 @@ export const register: Register = on => {
         )}
       </Box>
     )
+
+    if (e.props.placement === 'widget') {
+      const glance = (label: string, keyName: ActionKey, result: ActionResult | undefined) => (
+        <Text dimColor={result?.ok !== false} wrap="truncate-end">
+          {mark(keyName, result)} {label}
+          {result ? ` · ${result.summary}` : ''}
+        </Text>
+      )
+      return (
+        <Box flexDirection="column">
+          {glance('check', 'check', s.check)}
+          {glance('plan', 'plan', s.plan)}
+          {glance('init', 'init', s.init)}
+          {glance('GPU', 'gpu', s.gpu)}
+          {glance('logs', 'logs', s.logs)}
+          {glance('jobs', 'jobs', s.jobs)}
+        </Box>
+      )
+    }
 
     if (s.isCompact) {
       return (
