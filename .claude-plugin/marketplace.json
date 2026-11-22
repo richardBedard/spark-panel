@@ -1,0 +1,5 @@
+{
+  "name": "spark-panel",
+  "owner": { "name": "richardBedard" },
+  "plugins": [{ "name": "spark-panel", "source": "./" }]
+}

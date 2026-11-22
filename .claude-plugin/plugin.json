@@ -1,0 +1,6 @@
+{
+  "name": "spark-panel",
+  "version": "0.1.0",
+  "description": "Docked panel with buttons for Spark GPU commands: check, plan, init, GPU usage, logs, running jobs",
+  "types": "./types/index.d.ts"
+}
